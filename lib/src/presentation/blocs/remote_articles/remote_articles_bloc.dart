@@ -5,7 +5,6 @@ import 'package:design/src/domain/entities/article.dart';
 import 'package:design/src/domain/usecases/get_articles_usecase.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 part "./remote_articles_state.dart";
 part "./remote_articles_event.dart";
