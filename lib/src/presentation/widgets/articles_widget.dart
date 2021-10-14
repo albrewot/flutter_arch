@@ -8,13 +8,13 @@ class ArticleWidget extends StatelessWidget {
   final void Function(Article article)? onRemove;
   final void Function(Article article)? onArticlePressed;
 
-  const ArticleWidget(
-      {Key? key,
-      this.article,
-      this.onArticlePressed,
-      this.isRemovable = false,
-      this.onRemove})
-      : super(key: key);
+  const ArticleWidget({
+    Key? key,
+    this.article,
+    this.onArticlePressed,
+    this.isRemovable = false,
+    this.onRemove,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -119,14 +119,10 @@ class ArticleWidget extends StatelessWidget {
   }
 
   void _onTap() {
-    if (onArticlePressed != null) {
-      onArticlePressed!(article!);
-    }
+    onArticlePressed!(article!);
   }
 
   void _onRemove() {
-    if (onRemove != null) {
-      onRemove!(article!);
-    }
+    onRemove!(article!);
   }
 }

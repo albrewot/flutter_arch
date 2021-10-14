@@ -15,11 +15,14 @@ class BreakinngNewsView extends HookWidget {
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController();
 
-    useEffect(() {
-      scrollController
-          .addListener(() => _onScrollListener(context, scrollController));
-      return scrollController.dispose;
-    }, [scrollController]);
+    useEffect(
+      () {
+        scrollController
+            .addListener(() => _onScrollListener(context, scrollController));
+        return scrollController.dispose;
+      },
+      [scrollController],
+    );
 
     return Scaffold(
       appBar: _buildAppBar(),
@@ -61,16 +64,22 @@ class BreakinngNewsView extends HookWidget {
           );
         }
         if (remoteArticlesState is RemoteArticlesDone) {
-          return _buildArticle(scrollController, remoteArticlesState.articles!,
-              remoteArticlesState.noMoreData!);
+          return _buildArticle(
+            scrollController,
+            remoteArticlesState.articles!,
+            remoteArticlesState.noMoreData!,
+          );
         }
         return const SizedBox();
       },
     );
   }
 
-  Widget _buildArticle(ScrollController scrollController,
-      List<Article> articles, bool noMoreData) {
+  Widget _buildArticle(
+    ScrollController scrollController,
+    List<Article> articles,
+    bool noMoreData,
+  ) {
     return ListView(
       controller: scrollController,
       children: [
@@ -78,8 +87,9 @@ class BreakinngNewsView extends HookWidget {
           articles.map(
             (e) => Builder(
               builder: (context) => ArticleWidget(
-                  article: e,
-                  onArticlePressed: (e) => _onArticlePressed(context, e)),
+                article: e,
+                onArticlePressed: (e) => _onArticlePressed(context, e),
+              ),
             ),
           ),
         ),
@@ -96,7 +106,9 @@ class BreakinngNewsView extends HookWidget {
   }
 
   void _onScrollListener(
-      BuildContext context, ScrollController scrollController) {
+    BuildContext context,
+    ScrollController scrollController,
+  ) {
     final double maxScroll = scrollController.position.maxScrollExtent;
     final double currentScroll = scrollController.position.pixels;
     final RemoteArticlesBloc remoteArticlesBloc =

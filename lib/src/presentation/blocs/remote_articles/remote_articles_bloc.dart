@@ -22,7 +22,8 @@ class RemoteArticlesBloc
 
   @override
   Stream<RemoteArticlesState> mapEventToState(
-      RemoteArticlesEvent event) async* {
+    RemoteArticlesEvent event,
+  ) async* {
     if (event is GetRemoteArticles) yield* _getBreakingNewsArticles(event);
   }
 

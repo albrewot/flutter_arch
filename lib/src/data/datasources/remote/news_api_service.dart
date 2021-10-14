@@ -8,7 +8,7 @@ import '../../../core/utils/constants.dart';
 part 'news_api_service.g.dart';
 
 @RestApi(baseUrl: kBaseUrl)
-abstract class NewsApiService{
+abstract class NewsApiService {
   factory NewsApiService(Dio dio, {String baseUrl}) = _NewsApiService;
 
   @GET("/top-headlines")
@@ -19,4 +19,4 @@ abstract class NewsApiService{
     @Query("page") int page,
     @Query("pageSize") int pageSize,
   });
-} 
+}

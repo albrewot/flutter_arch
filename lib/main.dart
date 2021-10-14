@@ -23,16 +23,17 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: [
-          BlocProvider<RemoteArticlesBloc>(
-            create: (_) => injector()..add(const GetRemoteArticles()),
-          )
-        ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: kMaterialAppTitle,
-          onGenerateRoute: AppRoutes.onGenerateRoutes,
-          theme: AppTheme.light,
-        ));
+      providers: [
+        BlocProvider<RemoteArticlesBloc>(
+          create: (_) => injector()..add(const GetRemoteArticles()),
+        )
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: kMaterialAppTitle,
+        onGenerateRoute: AppRoutes.onGenerateRoutes,
+        theme: AppTheme.light,
+      ),
+    );
   }
 }

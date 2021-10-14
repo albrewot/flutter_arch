@@ -10,7 +10,6 @@ class AppTheme {
         titleTextStyle: TextStyle(color: Colors.black),
       ),
       primaryColor: Colors.black,
-      accentColor: Colors.black,
       splashColor: Colors.transparent,
       fontFamily: "IBM",
     );

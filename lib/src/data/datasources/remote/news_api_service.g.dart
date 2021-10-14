@@ -16,12 +16,13 @@ class _NewsApiService implements NewsApiService {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<BreakingNewsResponseModel>> getBreakingNewsArticles(
-      {String? apiKey,
-      String? country,
-      String? category,
-      int? page,
-      int? pageSize}) async {
+  Future<HttpResponse<BreakingNewsResponseModel>> getBreakingNewsArticles({
+    String? apiKey,
+    String? country,
+    String? category,
+    int? page,
+    int? pageSize,
+  }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       'apiKey': apiKey,
@@ -32,11 +33,17 @@ class _NewsApiService implements NewsApiService {
     };
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<BreakingNewsResponseModel>>(
-            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/top-headlines',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+      _setStreamType<HttpResponse<BreakingNewsResponseModel>>(
+        Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+            .compose(
+              _dio.options,
+              '/top-headlines',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl),
+      ),
+    );
     final value = BreakingNewsResponseModel.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
