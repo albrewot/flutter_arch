@@ -13,7 +13,7 @@ abstract class RemoteArticlesState extends Equatable {
   });
 
   @override
-  List<Object> get props => [articles!, noMoreData!, error!];
+  List<Object> get props => [articles!, noMoreData!];
 }
 
 class RemoteArticlesLoading extends RemoteArticlesState {
