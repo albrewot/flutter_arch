@@ -1,8 +1,10 @@
 import 'package:design/src/core/bloc/bloc_with_state.dart';
 import 'package:design/src/core/params/article_request.dart';
 import 'package:design/src/core/resources/data_state.dart';
+import 'package:design/src/data/datasources/local/daos/articles_dao.dart';
 import 'package:design/src/domain/entities/article.dart';
 import 'package:design/src/domain/usecases/get_articles_usecase.dart';
+import 'package:design/src/injector.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
@@ -12,6 +14,7 @@ part "./remote_articles_event.dart";
 class RemoteArticlesBloc
     extends BlocWithState<RemoteArticlesEvent, RemoteArticlesState> {
   final GetArticlesUseCase _getArticlesUseCase;
+  final ArticlesDao _articlesDao = injector();
 
   RemoteArticlesBloc(this._getArticlesUseCase)
       : super(const RemoteArticlesLoading());
@@ -31,6 +34,7 @@ class RemoteArticlesBloc
     RemoteArticlesEvent event,
   ) async* {
     yield* runBlocProcess(() async* {
+      List<Article> dbArticles = await _articlesDao.getArticles();
       final dataState =
           await _getArticlesUseCase(params: ArticlesRequestParams(page: _page));
 
@@ -39,7 +43,7 @@ class RemoteArticlesBloc
         final noMoreData = articles!.length < _pageSize;
         _articles.addAll(articles);
         _page++;
-
+        await _articlesDao.upsertArticles(articles);
         yield RemoteArticlesDone(_articles, noMoreData: noMoreData);
       }
       if (dataState is DataFailed) {

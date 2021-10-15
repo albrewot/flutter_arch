@@ -3,7 +3,7 @@ import 'package:design/src/domain/entities/article.dart';
 
 class ArticleModel extends Article {
   const ArticleModel({
-    // int? id,
+    int? id,
     SourceModel? source,
     String? author,
     String? title,
@@ -13,7 +13,7 @@ class ArticleModel extends Article {
     String? publishedAt,
     String? content,
   }) : super(
-          // id: id,
+          id: id,
           source: source,
           title: title,
           author: author,
@@ -24,16 +24,31 @@ class ArticleModel extends Article {
           content: content,
         );
 
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "source": source!.toJson(),
+      "author": author,
+      "title": title,
+      "description": description,
+      "url": url,
+      "urlToImage": urlToImage,
+      "publishedAt": publishedAt,
+      "content": content,
+    };
+  }
+
   factory ArticleModel.fromJson(Map<String, dynamic> json) {
     return ArticleModel(
-      // id: json["id"] as int,
+      id: json["id"] as int?,
       source: SourceModel.fromJson(json["source"] as Map<String, dynamic>),
       author: json["author"] as String?,
       title: json["title"] as String?,
       description: json["description"] as String?,
-      url: json["url"] as String,
+      url: json["url"] as String?,
       urlToImage: json["urlToImage"] as String?,
-      publishedAt: json["publishedAt"] as String,
+      publishedAt: json["publishedAt"] as String?,
       content: json["content"] as String?,
     );
   }

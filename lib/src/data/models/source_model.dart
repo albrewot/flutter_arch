@@ -9,6 +9,14 @@ class SourceModel extends Source {
           name: name,
         );
 
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "name": name,
+    };
+  }
+
   factory SourceModel.fromJson(Map<String, dynamic> json) {
     return SourceModel(
       id: json["id"] as String?,

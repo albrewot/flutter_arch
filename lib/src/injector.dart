@@ -1,3 +1,5 @@
+import 'package:design/src/data/datasources/local/app_database.dart';
+import 'package:design/src/data/datasources/local/daos/articles_dao.dart';
 import 'package:design/src/data/datasources/remote/news_api_service.dart';
 import 'package:design/src/data/repositories/articles_repository_impl.dart';
 import 'package:design/src/domain/repositories/article_repository.dart';
@@ -11,6 +13,10 @@ final injector = GetIt.instance;
 Future<void> initializeDependencies() async {
   injector.registerSingleton<Dio>(Dio());
 
+  injector.registerSingleton<DatabaseInstance>(DatabaseInstance());
+
+  injector.registerSingleton<ArticlesDao>(ArticlesDao());
+
   //Dependencies
   injector.registerSingleton<NewsApiService>(
     NewsApiService(
@@ -19,6 +25,7 @@ Future<void> initializeDependencies() async {
   );
   injector.registerSingleton<ArticlesRepository>(
     ArticlesRepositoryImpl(
+      injector(),
       injector(),
     ),
   );

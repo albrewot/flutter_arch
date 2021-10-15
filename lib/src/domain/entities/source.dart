@@ -9,8 +9,15 @@ class Source extends Equatable {
     this.name,
   });
 
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "name": name,
+    };
+  }
+
   @override
-  List<Object> get props => [id!, name!];
+  List<Object> get props => [name!];
 
   @override
   bool get stringify => true;

@@ -15,7 +15,7 @@ class DatabaseInstance {
     if (_database != null) {
       return _database!;
     } else {
-      _database = await initDB();
+      _database =  await initDB();
       return _database!;
     }
   }

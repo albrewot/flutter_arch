@@ -13,7 +13,7 @@ class DBTables {
       url TEXT,
       urlToImage TEXT,
       publishedAt VARCHAR(255),
-      content TEXT,
+      content TEXT
     )"""
   ];
 
@@ -29,7 +29,7 @@ class DBTables {
         url TEXT,
         urlToImage TEXT,
         publishedAt VARCHAR(255),
-        content TEXT,
+        content TEXT
       )"""
     ]
   };

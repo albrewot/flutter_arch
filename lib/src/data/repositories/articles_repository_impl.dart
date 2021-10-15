@@ -1,5 +1,6 @@
 import 'package:design/src/core/params/article_request.dart';
 import 'package:design/src/core/resources/data_state.dart';
+import 'package:design/src/data/datasources/local/daos/articles_dao.dart';
 import 'package:design/src/data/datasources/remote/news_api_service.dart';
 import 'package:design/src/domain/entities/article.dart';
 import 'package:design/src/domain/repositories/article_repository.dart';
@@ -7,8 +8,12 @@ import 'package:dio/dio.dart';
 
 class ArticlesRepositoryImpl implements ArticlesRepository {
   final NewsApiService _newsApiService;
-  const ArticlesRepositoryImpl(this._newsApiService);
 
+  final ArticlesDao _articlesDao;
+
+  const ArticlesRepositoryImpl(this._newsApiService, this._articlesDao);
+
+  //Remote Articles
   @override
   Future<DataState<List<Article>>> getBreakingNewsArticles(
     ArticlesRequestParams params,
@@ -35,6 +40,34 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
       );
     } on DioError catch (error) {
       return DataFailed(error);
+    }
+  }
+
+  //Db Articles
+  @override
+  Future<List<Article>> getSavedArticles() async{
+    try {
+      return _articlesDao.getArticles();
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> saveArticle(Article article) async{
+    try {
+      return _articlesDao.upsertArticle(article);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> removeArticle(Article article) async{
+    try {
+      return _articlesDao.deleteArticle(article.id!);
+    } catch (error) {
+      rethrow;
     }
   }
 }

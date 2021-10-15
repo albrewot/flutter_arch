@@ -1,8 +1,7 @@
 import 'package:design/src/domain/entities/source.dart';
 import 'package:equatable/equatable.dart';
-class Article extends Equatable {
 
-  
+class Article extends Equatable {
   final int? id;
   final Source? source;
   final String? author;
@@ -24,6 +23,20 @@ class Article extends Equatable {
     this.publishedAt,
     this.content,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "source": source!.toJson(),
+      "author": author,
+      "title": title,
+      "description": description,
+      "url": url,
+      "urlToImage": urlToImage,
+      "publishedAt": publishedAt,
+      "content": content,
+    };
+  }
 
   @override
   List<Object> get props => [
