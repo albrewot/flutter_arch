@@ -114,8 +114,8 @@ class ArticleDetailsView extends HookWidget {
     return Builder(
       builder: (context) => FloatingActionButton(
         onPressed: () => _onFloatingActionButtonPressed(context),
-        child: const Icon(Ionicons.bookmark, color: Colors.white),
         backgroundColor: Colors.black,
+        child: const Icon(Ionicons.bookmark, color: Colors.white),
       ),
     );
   }
