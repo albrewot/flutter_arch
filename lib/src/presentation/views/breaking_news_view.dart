@@ -42,7 +42,10 @@ class BreakinngNewsView extends HookWidget {
             onTap: () => _onShowArticlesViewTapped(context),
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 14),
-              child: Icon(Ionicons.bookmark),
+              child: Icon(
+                Ionicons.bookmark,
+                color: Colors.black,
+              ),
             ),
           ),
         ),
@@ -121,10 +124,10 @@ class BreakinngNewsView extends HookWidget {
   }
 
   void _onArticlePressed(BuildContext context, Article article) {
-    Navigator.pushNamed(context, "/article-details-view", arguments: article);
+    Navigator.pushNamed(context, "/article-details", arguments: article);
   }
 
   void _onShowArticlesViewTapped(BuildContext context) {
-    Navigator.pushNamed(context, "/saved-articles-view");
+    Navigator.pushNamed(context, "/saved-articles");
   }
 }

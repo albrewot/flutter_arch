@@ -15,7 +15,7 @@ class DatabaseInstance {
     if (_database != null) {
       return _database!;
     } else {
-      _database =  await initDB();
+      _database = await initDB();
       return _database!;
     }
   }
@@ -40,7 +40,10 @@ class DatabaseInstance {
   }
 
   Future<void> _upgrade(
-      Database db, int previousVersion, int currentVersion) async {
+    Database db,
+    int previousVersion,
+    int currentVersion,
+  ) async {
     final Batch batch = db.batch();
     for (int i = previousVersion + 1; i <= currentVersion; i++) {
       for (final migration in DBTables.migrations[i]!) {

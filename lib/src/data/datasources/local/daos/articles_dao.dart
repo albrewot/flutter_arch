@@ -39,9 +39,9 @@ class ArticlesDao {
 
   Future<List<Article>> getArticles() async {
     try {
-      Database db = await database;
-      List<Map<String, dynamic>> result = await db.query(kArticlesTableName);
-      List<Article> parsedArticles = _parseArticles(result);
+      final Database db = await database;
+      final List<Map<String, dynamic>> result = await db.query(kArticlesTableName);
+      final List<Article> parsedArticles = _parseArticles(result);
       return parsedArticles;
     } catch (error) {
       rethrow;
@@ -52,7 +52,7 @@ class ArticlesDao {
     try {
       final Database db = await database;
       int result = 0;
-      Map<String, dynamic> convertedrticle = article.toJson();
+      final Map<String, dynamic> convertedrticle = article.toJson();
       convertedrticle.update("source", (value) => json.encode(value));
       if (article.id != null) {
         result = await db.update(
